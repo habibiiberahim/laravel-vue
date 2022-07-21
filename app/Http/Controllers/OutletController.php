@@ -37,7 +37,7 @@ class OutletController extends Controller
         ]);
         
 
-        return redirect()->route('login')->with('message', 'Outlet Created Successfully');
+        return redirect()->route('dashboard')->with('message', 'Outlet Created Successfully');
     }
 
     public function edit(Outlet $outlet)
@@ -60,7 +60,7 @@ class OutletController extends Controller
         $outlet->save();
         sleep(1);
 
-        return redirect()->route('login')->with('message', 'Outlet Updated Successfully');
+        return redirect()->route('dashboard')->with('message', 'Outlet Updated Successfully');
     }
 
     public function destroy(Outlet $outlet)
@@ -68,7 +68,7 @@ class OutletController extends Controller
         $outlet->delete();
         sleep(1);
 
-        return redirect()->route('login')->with('message', 'Outlet Delete Successfully');
+        return redirect()->route('dashboard')->with('message', 'Outlet Delete Successfully');
     }
 
 }
