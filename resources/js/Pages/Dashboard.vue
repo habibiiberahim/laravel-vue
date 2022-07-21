@@ -1,9 +1,24 @@
 <script setup>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import { Link } from "@inertiajs/inertia-vue3";
+import { useForm } from '@inertiajs/inertia-vue3'
+
 const props = defineProps({
-    outlets : Object
-})
+    outlets: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+const form = useForm();
+
+
+function destroy(id) {
+    console.log(id)
+    if (confirm("Are you sure you want to Delete")) {
+        form.delete(route('outlets.destroy', id));
+    }
+}
 </script>
 
 <template>
@@ -19,7 +34,9 @@ const props = defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <button  type="button" class=" ml-5 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
+                    <Link :href="route('outlets.create')">
+                        <button  type="button" class=" ml-5 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create</button>
+                    </Link>
                     <div class="p-6 bg-white border-b border-gray-200">    
                         <div class="overflow-x-auto relative">
                             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -48,10 +65,12 @@ const props = defineProps({
                                             {{outlet.address}}
                                         </td>
                                         <td class="py-4 px-6">
-                                            <button @click="editOutlet(outlet.id)" type="button" class=" ml-5 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
+                                            <Link :href="route('outlets.edit', outlet.id)">
+                                                <button  type="button" class=" ml-5 mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</button>
+                                            </Link>    
                                         </td>
                                         <td class="py-4 px-6">
-                                            <button @click="deleteOutlet(outlet.id)" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                                            <button @click="destroy(outlet.id)" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                                         </td>
                                     </tr>
                                 </tbody>

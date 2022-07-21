@@ -11,7 +11,7 @@ class Outlet extends Model
     
     protected $table = 'outlets';
 
-    protected $guard= [];
+    protected $fillable= ['name', 'address', 'user_id'];
 
     public function owner()
     {

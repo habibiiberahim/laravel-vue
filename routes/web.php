@@ -16,13 +16,11 @@ use App\Http\Controllers\OutletController;
 */
 
 Route::get('/', [LandingController::class, 'index']);
-
-Route::get('/outlet', [OutletController::class, 'create'])->middleware(['auth'])->name('outlet.create');
-
 Route::get('/dashboard', [LandingController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::get('/admin', [AdminController::class, 'dashboard'])->middleware(['auth', 'admin'])->name('admin.dashboard');
 
+Route::resource('outlets', OutletController::class);
 
 
 require __DIR__.'/auth.php';

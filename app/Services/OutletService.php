@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Repositories\OutletRepository;
+use Illuminate\Http\Request;
 
 class OutletService 
 {
@@ -26,5 +27,14 @@ class OutletService
     public function findById($id)
     {
         return $this->outletRepository->findById($id);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
+            'content' => 'required',
+        ]);
     }
 }
